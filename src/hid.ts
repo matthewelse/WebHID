@@ -65,16 +65,17 @@ export default class HID {
         return this.device.close();
     }
 
-    write(data: ArrayBuffer) {
+    write(data: ArrayBuffer): Promise<void> {
         let report_size = this.ep_out.packetSize;
         let buffer = bufferExtend(data, report_size);
 
         return this.device.transferOut(this.ep_out.endpointNumber, buffer);
     }
 
-    read() {
+    read() : Promise<Uint8Array> {
         let report_size = this.ep_in.packetSize;
 
-        return this.device.transferIn(this.ep_in.endpointNumber, report_size);
+        return this.device.transferIn(this.ep_in.endpointNumber, report_size)
+            .then(res => res.data);
     }
 }
