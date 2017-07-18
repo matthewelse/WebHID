@@ -100,7 +100,8 @@ var HID = (function () {
     };
     HID.prototype.read = function () {
         var report_size = this.ep_in.packetSize;
-        return this.device.transferIn(this.ep_in.endpointNumber, report_size);
+        return this.device.transferIn(this.ep_in.endpointNumber, report_size)
+            .then(function (res) { return res.data; });
     };
     return HID;
 }());

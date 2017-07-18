@@ -10,5 +10,5 @@ export default class HID {
     open(): Promise<void>;
     close(): Promise<void>;
     write(data: ArrayBuffer): Promise<void>;
-    read(): Promise<TransferResult>;
+    read(): Promise<Uint8Array>;
 }
